@@ -2,8 +2,11 @@ import { Link } from "react-router-dom";
 import emailIcon from "../assets/icons/emailIcon.svg";
 import passwordIcon from "../assets/icons/passwordIcon.svg";
 import API from "../utils/API.js";
+import { useNavigate } from "react-router-dom";
 
 const RegisterPage = () => {
+  const navigate = useNavigate();
+
   const registerUser = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
@@ -12,6 +15,7 @@ const RegisterPage = () => {
     API.post("/api/auth/register", data)
       .then(() => {
         alert("User Registered Successfully");
+        navigate("/profileCustomization");
         e.target.reset();
       })
       .catch((err) => {
@@ -43,6 +47,7 @@ const RegisterPage = () => {
           onSubmit={(e) => {
             registerUser(e);
           }}
+          autoComplete="off"
           className="space-y-5"
         >
           {/* Email */}

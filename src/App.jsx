@@ -6,23 +6,31 @@ import PostPage from "./pages/Post.page.jsx";
 import HomePage from "./pages/Home.page.jsx";
 import RegisterPage from "./pages/Register.page.jsx";
 import LoginPage from "./pages/Login.page.jsx";
+import ProfileCustomize from "./pages/ProfileCustomize.page.jsx";
+import { AuthProvider } from "./contexts/AuthContext.jsx";
 
 const App = () => {
   return (
-    <div className="bg-bg-main h-screen text-white">
-      {/* Routes */}
-      <div>
-        <Routes>
-          <Route path="/" element={<AuthPage />} />
-          <Route path="/home" element={<HomePage />} />
-          <Route path="/profile" element={<ProfilePage />} />
-          <Route path="/feed" element={<FeedPage />} />
-          <Route path="/post" element={<PostPage />} />
-          <Route path="/register" element={<RegisterPage />} />
-          <Route path="/login" element={<LoginPage />} />
-        </Routes>
+    <AuthProvider>
+      <div className="bg-bg-main h-screen text-white">
+        {/* Routes */}
+        <div>
+          <Routes>
+            <Route path="/" element={<AuthPage />} />
+            <Route path="/home" element={<HomePage />} />
+            <Route path="/profile" element={<ProfilePage />} />
+            <Route path="/feed" element={<FeedPage />} />
+            <Route path="/post" element={<PostPage />} />
+            <Route path="/register" element={<RegisterPage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route
+              path="/profileCustomization"
+              element={<ProfileCustomize />}
+            />
+          </Routes>
+        </div>
       </div>
-    </div>
+    </AuthProvider>
   );
 };
 

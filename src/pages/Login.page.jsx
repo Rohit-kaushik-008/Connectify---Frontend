@@ -2,16 +2,24 @@ import { Link } from "react-router-dom";
 import emailIcon from "../assets/icons/emailIcon.svg";
 import passwordIcon from "../assets/icons/passwordIcon.svg";
 import API from "../utils/API";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../hooks/useAuth.js";
 
 const LoginPage = () => {
+  const navigate = useNavigate();
+
+  const { setUserId } = useAuth();
+
   const loginUser = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
     const data = Object.fromEntries(formData);
 
     API.post("/api/auth/login", data)
-      .then(() => {
+      .then((res) => {
+        setUserId(res.data.data._id);
         alert("User Logged In Successfully");
+        navigate("/profileCustomization");
         e.target.reset();
       })
       .catch((err) => {
@@ -55,6 +63,7 @@ const LoginPage = () => {
           onSubmit={(e) => {
             loginUser(e);
           }}
+          autoComplete="off"
           className="space-y-5"
         >
           {/* Email */}
