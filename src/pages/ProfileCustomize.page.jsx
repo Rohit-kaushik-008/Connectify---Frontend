@@ -3,9 +3,12 @@ import fullnameIcon from "../assets/icons/profileIcon.svg";
 import API from "../utils/API.js";
 import { useAuth } from "../hooks/useAuth.js";
 import { useNavigate } from "react-router-dom";
+import { useProfile } from "../hooks/useProfile.js";
 
 const ProfileCustomize = () => {
   const { userId } = useAuth();
+
+  const { fetchProfile, setProfile } = useProfile();
 
   const navigate = useNavigate();
 
@@ -15,8 +18,11 @@ const ProfileCustomize = () => {
     const data = Object.fromEntries(formData);
 
     API.patch(`/user/customize/profile/${userId}`, data)
-      .then(() => {
+      .then((res) => {
+        console.log(res.data.data);
+        setProfile(res.data.data);
         alert("User Details Saved");
+        fetchProfile();
         e.target.reset();
         navigate("/profile");
       })
@@ -120,7 +126,6 @@ const ProfileCustomize = () => {
                 id="fullname"
                 type="text"
                 name="fullname"
-                required
                 autoComplete="off"
                 placeholder="Enter your Fullname"
                 className="w-full h-14
@@ -163,7 +168,6 @@ const ProfileCustomize = () => {
                 id="username"
                 type="text"
                 name="username"
-                required
                 autoComplete="off"
                 placeholder="Enter your Username"
                 className="w-full h-14

@@ -4,11 +4,13 @@ import passwordIcon from "../assets/icons/passwordIcon.svg";
 import API from "../utils/API";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth.js";
+import { useProfile } from "../hooks/useProfile.js";
 
 const LoginPage = () => {
   const navigate = useNavigate();
 
   const { setUserId } = useAuth();
+  const { fetchProfile } = useProfile();
 
   const loginUser = async (e) => {
     e.preventDefault();
@@ -18,8 +20,9 @@ const LoginPage = () => {
     API.post("/api/auth/login", data)
       .then((res) => {
         setUserId(res.data.data._id);
+        fetchProfile();
         alert("User Logged In Successfully");
-        navigate("/profileCustomization");
+        navigate("/profile");
         e.target.reset();
       })
       .catch((err) => {
@@ -207,7 +210,7 @@ const LoginPage = () => {
             Don't have an account?{" "}
             <button
               type="button"
-              className="font-['Poppins']
+              className="font-body-6
                          font-medium
                          text-theme-main
                          hover:text-theme-light

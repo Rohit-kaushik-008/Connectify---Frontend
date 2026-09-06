@@ -1,8 +1,82 @@
-const FeedPage = () => {
+import likeIcon from "../assets/icons/likeIcon.svg";
+import commentIcon from "../assets/icons/commentIcon.svg";
+import moreIcon from "../assets/icons/moreIcon.svg";
+
+const FeedPage = ({ post, profile }) => {
   return (
-    <div>
-      <h1>Feed Page </h1>
-    </div>
+    <article className="w-full max-w-2xl overflow-hidden rounded-2xl bg-zinc-950 text-white">
+      {/* Header */}
+      <div className="flex items-center justify-between px-5 py-4 bg-bg-light min-w-0">
+        {/* Profile + Info */}
+        <div className="flex items-center gap-4 min-w-0 flex-1">
+          {/* Profile Image */}
+          <img
+            src={profile?.avatar}
+            alt={profile?.username}
+            className="h-16 w-16 shrink-0 rounded-full object-cover border-2"
+          />
+
+          {/* Name + Username */}
+          <div className="min-w-0 flex-1">
+            <h3 className="font-semibold font-heading-1 text-2xl leading-tight truncate">
+              {profile?.fullname}
+            </h3>
+
+            <p className="text-[18px] text-zinc-500 truncate">
+              @{profile?.username}
+            </p>
+          </div>
+        </div>
+
+        {/* More Button */}
+        <button
+          className="shrink-0 rounded-full p-2 text-zinc-400 transition hover:bg-bg-main hover:text-white cursor-pointer active:scale-90"
+          aria-label="Post options"
+        >
+          <img src={moreIcon} alt="" />
+        </button>
+      </div>
+
+      {/* Caption Area */}
+      <div className="h-26 px-5 py-2 bg-bg-light overflow-hidden">
+        {post.caption && (
+          <p className="whitespace-pre-wrap wrap-break-word text-[16px] sm:text-lg leading-6 text-zinc-200 line-clamp-3">
+            {post?.caption} Lorem ipsum dolor sit, amet consectetur adipisicing
+            elit. Sit porro consequatur odit sed mollitia. Itaque architecto
+            repellat doloremque obcaecati? Ab? Lorem ipsum dolor sit amet
+            consectetur adipisicing elit. Tempore fugiat beatae unde.
+          </p>
+        )}
+      </div>
+
+      {/* Image Area */}
+      {post.image && (
+        <div className="w-full h-80 bg-black flex items-center justify-center overflow-hidden">
+          <img
+            src={post?.image}
+            alt="Post"
+            className="h-full w-full object-contain"
+          />
+        </div>
+      )}
+
+      {/* Actions */}
+      <div className="px-5 py-4 bg-bg-main">
+        <div className="flex items-center gap-8">
+          {/* Like */}
+          <button className="flex justify-center items-center gap-3 text-zinc-400 transition duration-150 hover:text-white cursor-pointer active:scale-90">
+            <span className="text-2xl">41</span>
+            <img className="h-8" src={likeIcon} alt="" />
+          </button>
+
+          {/* Comments */}
+          <button className="flex justify-center items-center gap-3 text-zinc-400 transition duration-150 hover:text-white cursor-pointer active:scale-90">
+            <span className="text-2xl">3</span>
+            <img className="h-8" src={commentIcon} alt="" />
+          </button>
+        </div>
+      </div>
+    </article>
   );
 };
 
