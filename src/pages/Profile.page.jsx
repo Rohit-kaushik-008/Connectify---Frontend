@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 const ProfilePage = () => {
   const { profile, stats } = useProfile();
   const { posts } = usePost();
-  const navigate = useNavigate();
+  const navigate = useNavigate(); 
 
   const [showFullBio, setShowFullBio] = useState(false);
 

@@ -7,9 +7,9 @@ import HomePage from "./pages/Home.page.jsx";
 import RegisterPage from "./pages/Register.page.jsx";
 import LoginPage from "./pages/Login.page.jsx";
 import ProfileCustomize from "./pages/ProfileCustomize.page.jsx";
-import { AuthProvider } from "./contexts/AuthContext.jsx";
-import { ProfileProvider } from "./contexts/ProfileContext.jsx";
-import { PostProvider } from "./contexts/PostContext.jsx";
+import { AuthProvider } from "./contexts/AuthProvider.jsx";
+import { ProfileProvider } from "./contexts/ProfileProvider.jsx";
+import { PostProvider } from "./contexts/PostProvider.jsx";
 
 const App = () => {
   return (

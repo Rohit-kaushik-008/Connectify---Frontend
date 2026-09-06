@@ -1,8 +1,22 @@
 import likeIcon from "../assets/icons/likeIcon.svg";
 import commentIcon from "../assets/icons/commentIcon.svg";
 import moreIcon from "../assets/icons/moreIcon.svg";
+import { handleLike } from "../utils/postActions.js";
+import { usePost } from "../hooks/usePost.js";
 
 const FeedPage = ({ post, profile }) => {
+  const { setPosts } = usePost();
+
+  const handleIsLikedState = (isLiked, postId) => {
+    handleLike(isLiked, postId);
+
+    setPosts((prevPosts) =>
+      prevPosts.map((post) =>
+        post._id === postId ? { ...post, isLiked: !post.isLiked } : post,
+      ),
+    );
+  };
+
   return (
     <article className="w-full max-w-2xl overflow-hidden rounded-2xl bg-zinc-950 text-white">
       {/* Header */}
@@ -64,14 +78,19 @@ const FeedPage = ({ post, profile }) => {
       <div className="px-5 py-4 bg-bg-main">
         <div className="flex items-center gap-8">
           {/* Like */}
-          <button className="flex justify-center items-center gap-3 text-zinc-400 transition duration-150 hover:text-white cursor-pointer active:scale-90">
-            <span className="text-2xl">41</span>
+          <button
+            onClick={() => {
+              handleIsLikedState(post?.isLiked, post?._id);
+            }}
+            className="flex justify-center items-center gap-3 text-zinc-400 transition duration-150 hover:text-white cursor-pointer active:scale-90"
+          >
+            <span className="text-2xl">{post?.likesCount} </span>
             <img className="h-8" src={likeIcon} alt="" />
           </button>
 
           {/* Comments */}
           <button className="flex justify-center items-center gap-3 text-zinc-400 transition duration-150 hover:text-white cursor-pointer active:scale-90">
-            <span className="text-2xl">3</span>
+            <span className="text-2xl">{post?.commentsCount} </span>
             <img className="h-8" src={commentIcon} alt="" />
           </button>
         </div>
