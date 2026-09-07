@@ -137,7 +137,7 @@ const ProfilePage = () => {
       <div className="mx-8 flex flex-col sm:flex-row  sm: justify-center flex-wrap gap-8 pb-20">
         {posts?.map((item) => {
           return (
-            <div key={item?._id}>
+            <div className="w-full" key={item?._id}>
               <FeedPage post={item} profile={profile} />
             </div>
           );

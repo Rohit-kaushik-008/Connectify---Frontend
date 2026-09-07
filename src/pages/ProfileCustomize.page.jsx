@@ -8,7 +8,7 @@ import { useProfile } from "../hooks/useProfile.js";
 const ProfileCustomize = () => {
   const { userId } = useAuth();
 
-  const { fetchProfile, setProfile } = useProfile();
+  const { setProfile } = useProfile();
 
   const navigate = useNavigate();
 
@@ -22,7 +22,6 @@ const ProfileCustomize = () => {
         console.log(res.data.data);
         setProfile(res.data.data);
         alert("User Details Saved");
-        fetchProfile();
         e.target.reset();
         navigate("/profile");
       })

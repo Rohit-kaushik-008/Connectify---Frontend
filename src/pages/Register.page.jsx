@@ -4,13 +4,13 @@ import passwordIcon from "../assets/icons/passwordIcon.svg";
 import API from "../utils/API.js";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth.js";
-import { useProfile } from "../hooks/useProfile.js";
+// import { useProfile } from "../hooks/useProfile.js";
 
 const RegisterPage = () => {
   const navigate = useNavigate();
 
   const { setUserId } = useAuth();
-  const { fetchProfile } = useProfile();
+  // const { fetchProfile } = useProfile();
 
   const registerUser = async (e) => {
     e.preventDefault();
@@ -20,7 +20,7 @@ const RegisterPage = () => {
     API.post("/api/auth/register", data)
       .then((res) => {
         setUserId(res.data.data._id);
-        fetchProfile();
+        // fetchProfile();
         alert("User Registered Successfully");
         navigate("/profileCustomization");
         e.target.reset();

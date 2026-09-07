@@ -4,13 +4,11 @@ import passwordIcon from "../assets/icons/passwordIcon.svg";
 import API from "../utils/API";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth.js";
-import { useProfile } from "../hooks/useProfile.js";
 
 const LoginPage = () => {
   const navigate = useNavigate();
 
   const { setUserId } = useAuth();
-  const { fetchProfile } = useProfile();
 
   const loginUser = async (e) => {
     e.preventDefault();
@@ -20,7 +18,7 @@ const LoginPage = () => {
     API.post("/api/auth/login", data)
       .then((res) => {
         setUserId(res.data.data._id);
-        fetchProfile();
+        console.log(res.data.data._id);
         alert("User Logged In Successfully");
         navigate("/profile");
         e.target.reset();

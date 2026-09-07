@@ -9,8 +9,10 @@ export const handleLike = async (isLiked, postId) => {
       const response = await API.post(`/user/post/like/${postId}`);
       console.log(response.data);
     }
+    return true;
   } catch (error) {
     console.log(error);
+    return false;
   }
 };
 

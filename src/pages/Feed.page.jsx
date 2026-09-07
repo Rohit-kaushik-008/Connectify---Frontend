@@ -7,8 +7,12 @@ import { usePost } from "../hooks/usePost.js";
 const FeedPage = ({ post, profile }) => {
   const { setPosts } = usePost();
 
-  const handleIsLikedState = (isLiked, postId) => {
-    handleLike(isLiked, postId);
+  // console.log(post)
+
+  const handleIsLikedState = async (isLiked, postId) => {
+    const success = await handleLike(isLiked, postId);
+
+    if (!success) return;
 
     setPosts((prevPosts) =>
       prevPosts.map((post) =>
@@ -53,14 +57,11 @@ const FeedPage = ({ post, profile }) => {
 
       {/* Caption Area */}
       <div className="h-26 px-5 py-2 bg-bg-light overflow-hidden">
-        {post.caption && (
+        
           <p className="whitespace-pre-wrap wrap-break-word text-[16px] sm:text-lg leading-6 text-zinc-200 line-clamp-3">
-            {post?.caption} Lorem ipsum dolor sit, amet consectetur adipisicing
-            elit. Sit porro consequatur odit sed mollitia. Itaque architecto
-            repellat doloremque obcaecati? Ab? Lorem ipsum dolor sit amet
-            consectetur adipisicing elit. Tempore fugiat beatae unde.
+            {post?.caption}
           </p>
-        )}
+        
       </div>
 
       {/* Image Area */}
