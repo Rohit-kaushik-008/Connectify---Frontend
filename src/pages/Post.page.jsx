@@ -1,4 +1,5 @@
 import { useRef, useState } from "react";
+import API from "../utils/API.js";
 
 const AddPost = () => {
   const [caption, setCaption] = useState("");
@@ -25,20 +26,20 @@ const AddPost = () => {
     }
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = async (e) => {
+    try {
+      const formData = new FormData(e.target);
 
-    // API call will go here
-    console.log({
-      caption,
-      image: image?.file,
-    });
+      const response = await API.post("/user/profile/addPost", formData);
+      alert(response.data.message)
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
-    <div className="min-h-screen bg-bg-light px-4 py-6 sm:px-8">
+    <div className="min-h-screen bg-bg-dark px-4 py-6 sm:px-8">
       <div className="mx-auto w-full max-w-2xl">
-
         {/* Header */}
         <div className="mb-7">
           <h1 className="font-heading-1 text-3xl font-bold text-white">
@@ -52,10 +53,11 @@ const AddPost = () => {
 
         {/* Composer */}
         <form
-          onSubmit={handleSubmit}
-          className="rounded-2xl border border-zinc-800 bg-zinc-900 p-5 sm:p-6"
+          onSubmit={(e) => {
+            handleSubmit(e);
+          }}
+          className="rounded-2xl border border-zinc-800 bg-bg-light p-5 sm:p-6"
         >
-
           {/* Caption */}
           <div>
             <label className="mb-3 block text-sm font-medium text-zinc-300">
@@ -63,15 +65,17 @@ const AddPost = () => {
             </label>
 
             <textarea
+              name="caption"
               value={caption}
               onChange={(e) => setCaption(e.target.value)}
               placeholder="What's on your mind?"
               rows={6}
-              maxLength={500}
+              maxLength={100}
+              required
               className="
                 w-full resize-none rounded-xl
                 border border-zinc-800
-                bg-zinc-950
+                bg-bg-dark
                 px-4 py-3
                 text-white
                 outline-none
@@ -82,7 +86,7 @@ const AddPost = () => {
 
             <div className="mt-2 flex justify-end">
               <span className="text-xs text-zinc-600">
-                {caption.length}/500
+                {caption.length}/100
               </span>
             </div>
           </div>
@@ -91,9 +95,7 @@ const AddPost = () => {
           <div className="mt-6">
             <label className="mb-3 block text-sm font-medium text-zinc-300">
               Image
-              <span className="ml-2 font-normal text-zinc-600">
-                Optional
-              </span>
+              <span className="ml-2 font-normal text-zinc-600">Optional</span>
             </label>
 
             {!image ? (
@@ -103,7 +105,7 @@ const AddPost = () => {
                 className="
                   flex w-full flex-col items-center justify-center
                   rounded-xl border border-dashed border-zinc-700
-                  bg-zinc-950
+                  bg-bg-dark
                   px-5 py-10
                   text-center
                   transition
@@ -119,9 +121,7 @@ const AddPost = () => {
                   Add an image
                 </p>
 
-                <p className="mt-1 text-xs text-zinc-600">
-                  JPG, PNG or WEBP
-                </p>
+                <p className="mt-1 text-xs text-zinc-600">JPG, PNG or WEBP</p>
               </button>
             ) : (
               <div className="relative overflow-hidden rounded-xl border border-zinc-800">
@@ -151,6 +151,7 @@ const AddPost = () => {
             )}
 
             <input
+              name="image"
               ref={fileInputRef}
               type="file"
               accept="image/png,image/jpeg,image/webp"
@@ -168,19 +169,23 @@ const AddPost = () => {
             disabled={!caption.trim()}
             className="
               w-full rounded-xl
-              bg-white
+              bg-linear-to-r
+               from-theme-light
+               to-theme-main
               py-3
-              font-semibold text-black
+              font-semibold text-white
+              font-body-6
+              text-lg
               transition
               hover:bg-zinc-200
               disabled:cursor-not-allowed
               disabled:opacity-30
+              cursor-pointer
             "
           >
             Post
           </button>
         </form>
-
       </div>
     </div>
   );
