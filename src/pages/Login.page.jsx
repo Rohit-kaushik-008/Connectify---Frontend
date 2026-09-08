@@ -18,7 +18,6 @@ const LoginPage = () => {
     API.post("/api/auth/login", data)
       .then((res) => {
         setUserId(res.data.data._id);
-        console.log(res.data.data._id);
         alert("User Logged In Successfully");
         navigate("/profile");
         e.target.reset();
@@ -153,6 +152,8 @@ const LoginPage = () => {
                 id="password"
                 type="password"
                 name="password"
+                minLength={4}
+                maxLength={17}
                 required
                 placeholder="Enter your password"
                 className="w-full

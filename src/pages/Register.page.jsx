@@ -121,6 +121,8 @@ const RegisterPage = () => {
                 id="password"
                 type="password"
                 name="password"
+                minLength={4}
+                maxLength={16}
                 required
                 placeholder="Enter your password"
                 className="w-full h-14

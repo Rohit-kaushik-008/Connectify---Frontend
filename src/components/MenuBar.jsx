@@ -1,4 +1,3 @@
-import logoIcon from "../assets/images/newLogo2.png";
 import logoutIcon from "../assets/icons/logoutIcon.svg";
 import { useNavigate } from "react-router-dom";
 import API from "../utils/API";
@@ -13,7 +12,7 @@ const MenuBar = () => {
   return (
     <div className="flex justify-between items-center h-full w-full py-2 px-4 border-b border-neutral-700">
       <div>
-        <img className="h-15" src={logoIcon} alt="" />
+        <h1 className="font-bold font-heading-1 text-2xl text-theme-light border border-theme-main py-2 px-4 rounded-full">Connectify</h1>
       </div>
       <div
         onClick={() => {

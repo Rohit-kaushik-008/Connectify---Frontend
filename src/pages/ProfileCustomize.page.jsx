@@ -19,7 +19,6 @@ const ProfileCustomize = () => {
 
     API.patch(`/user/customize/profile/${userId}`, data)
       .then((res) => {
-        console.log(res.data.data);
         setProfile(res.data.data);
         alert("User Details Saved");
         e.target.reset();
@@ -125,6 +124,8 @@ const ProfileCustomize = () => {
                 id="fullname"
                 type="text"
                 name="fullname"
+                minLength={1}
+                maxLength={15}
                 autoComplete="off"
                 placeholder="Enter your Fullname"
                 className="w-full h-14
@@ -167,6 +168,8 @@ const ProfileCustomize = () => {
                 id="username"
                 type="text"
                 name="username"
+                minLength={1}
+                maxLength={15}
                 autoComplete="off"
                 placeholder="Enter your Username"
                 className="w-full h-14
@@ -202,6 +205,8 @@ const ProfileCustomize = () => {
                 id="bio"
                 type="text"
                 name="bio"
+                minLength={0}
+                maxLength={100}
                 className="w-full
                            bg-[hsl(230,42%,9%)]
                            border border-[hsl(230,29%,25%)]
@@ -220,10 +225,6 @@ const ProfileCustomize = () => {
               />
             </div>
           </div>
-
-          {/* profileImage */}
-
-          {/* coverImage */}
 
           {/* Create Account */}
           <button
