@@ -9,10 +9,11 @@ const SearchBar = ({ search, setSearch, setSearchItems }) => {
     const value = e.target.value;
 
     setSearch(value);
+    setSearchItems([]);
 
     clearTimeout(timeoutId.current);
 
-    if (value.trim() === "") return;
+    if (!value.trim()) return;
 
     timeoutId.current = setTimeout(async () => {
       try {

@@ -14,11 +14,16 @@ const SearchPage = () => {
         <SearchPageHeader />
 
         {/* Search Bar */}
-        <SearchBar search={search} setSearch={setSearch} searchItems={searchItems} setSearchItems={setSearchItems} />
+        <SearchBar
+          search={search}
+          setSearch={setSearch}
+          searchItems={searchItems}
+          setSearchItems={setSearchItems}
+        />
 
         {/* Search Results */}
         <div className="mt-8">
-          <SearchRestults />
+          <SearchRestults searchItems={searchItems} search={search} />
         </div>
       </div>
     </div>

@@ -1,5 +1,6 @@
 import { useRef, useState } from "react";
 import API from "../utils/API.js";
+import { Plus } from "lucide-react";
 
 const AddPost = () => {
   const [caption, setCaption] = useState("");
@@ -31,7 +32,7 @@ const AddPost = () => {
       const formData = new FormData(e.target);
 
       const response = await API.post("/user/profile/addPost", formData);
-      alert(response.data.message)
+      alert(response.data.message);
     } catch (error) {
       console.log(error);
     }
@@ -110,11 +111,11 @@ const AddPost = () => {
                   text-center
                   transition
                   hover:border-zinc-500
-                  hover:bg-zinc-900
+                  hover:bg-bg-main
                 "
               >
-                <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-zinc-900 text-xl text-zinc-400">
-                  +
+                <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-theme-dark text-xl text-zinc-400">
+                  <Plus />
                 </div>
 
                 <p className="text-sm font-medium text-zinc-300">
