@@ -8,7 +8,7 @@ import { useAuth } from "../hooks/useAuth.js";
 const LoginPage = () => {
   const navigate = useNavigate();
 
-  const { setUserId } = useAuth();
+  const { setUserId, setProfileId } = useAuth();
 
   const loginUser = async (e) => {
     e.preventDefault();
@@ -18,6 +18,7 @@ const LoginPage = () => {
     API.post("/api/auth/login", data)
       .then((res) => {
         setUserId(res.data.data._id);
+        setProfileId(res.data.data._id)
         alert("User Logged In Successfully");
         navigate("/profile");
         e.target.reset();

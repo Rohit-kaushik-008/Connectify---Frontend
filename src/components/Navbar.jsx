@@ -19,7 +19,7 @@ const Navbar = () => {
               <img className="h-8 mb-2" src={homeIcon} alt="home" />
 
               <span
-                className={`absolute bottom-0 h-1 w-10 rounded-full bg-theme-light transition-all duration-300 ${
+                className={`absolute bottom-0 h-0.5 w-12 rounded-full bg-theme-light transition-all duration-300 ${
                   isActive ? "scale-x-100 opacity-100" : "scale-x-0 opacity-0"
                 }`}
               />
@@ -36,7 +36,7 @@ const Navbar = () => {
               <img className="h-8 mb-2" src={searchIcon} alt="search" />
 
               <span
-                className={`absolute bottom-0 h-1 w-10 rounded-full bg-theme-light transition-all duration-300 ${
+                className={`absolute bottom-0 h-0.5 w-12 rounded-full bg-theme-light transition-all duration-300 ${
                   isActive ? "scale-x-100 opacity-100" : "scale-x-0 opacity-0"
                 }`}
               />
@@ -53,7 +53,7 @@ const Navbar = () => {
               <img className="h-8 mb-2" src={addIcon} alt="add post" />
 
               <span
-                className={`absolute bottom-0 h-1 w-18 rounded-full bg-theme-light transition-all duration-300 ${
+                className={`absolute bottom-0 h-0.5 w-12 rounded-full bg-theme-light transition-all duration-300 ${
                   isActive ? "scale-x-100 opacity-100" : "scale-x-0 opacity-0"
                 }`}
               />
@@ -76,7 +76,7 @@ const Navbar = () => {
               </div>
 
               <span
-                className={`absolute bottom-0 h-1 w-10 rounded-full bg-theme-light transition-all duration-300 ${
+                className={`absolute bottom-0 h-0.5 w-12 rounded-full bg-theme-light transition-all duration-300 ${
                   isActive ? "scale-x-100 opacity-100" : "scale-x-0 opacity-0"
                 }`}
               />
