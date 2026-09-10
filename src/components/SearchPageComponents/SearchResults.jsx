@@ -12,7 +12,7 @@ const SearchResults = ({ searchItems, search }) => {
             </h2>
           </div>
 
-          <div className="overflow-hidden rounded-2xl border border-zinc-500 bg-zinc-900/40">
+          <div className="overflow-hidden rounded-2xl border border-zinc-700 bg-zinc-900/40">
             {search?.trim() &&
               (searchItems?.length > 0 ? (
                 searchItems.map((item) => (

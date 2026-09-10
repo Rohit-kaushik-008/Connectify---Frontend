@@ -1,17 +1,24 @@
 import { useEffect, useState } from "react";
 import API from "../utils/API";
 import { ProfileContext } from "./ProfileContext";
+import { useAuth } from "../hooks/useAuth.js";
+import { loadFromLocalStorage } from "../Storage/localStorage.js";
 
 export function ProfileProvider({ children }) {
   const [profile, setProfile] = useState(null);
   const [stats, setStats] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  const { profileId, setUserId, setProfileId } = useAuth();
+  // console.log("Profile Id : ", profileId);
+
   useEffect(() => {
+    const { user_Id, profile_Id } = loadFromLocalStorage();
+    setUserId(user_Id);
+    setProfileId(profile_Id);
     const fetchProfile = async () => {
       try {
-        const response = await API.get("/user/profile/data");
-
+        const response = await API.get(`/user/profile/data/${profileId}`);
         const { profileData, stats } = response.data.data;
         setProfile(profileData);
         setStats(stats);
@@ -22,8 +29,10 @@ export function ProfileProvider({ children }) {
       }
     };
 
+    if (!profileId) return;
+
     fetchProfile();
-  }, []);
+  }, [profileId, setProfileId, setUserId]);
 
   return (
     <ProfileContext.Provider

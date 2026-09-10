@@ -4,12 +4,13 @@ import passwordIcon from "../assets/icons/passwordIcon.svg";
 import API from "../utils/API.js";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth.js";
+import { saveToLocalStorage } from "../Storage/localStorage.js";
 // import { useProfile } from "../hooks/useProfile.js";
 
 const RegisterPage = () => {
   const navigate = useNavigate();
 
-  const { setUserId } = useAuth();
+  const { setUserId, setProfileId } = useAuth();
   // const { fetchProfile } = useProfile();
 
   const registerUser = async (e) => {
@@ -19,8 +20,10 @@ const RegisterPage = () => {
 
     API.post("/api/auth/register", data)
       .then((res) => {
-        setUserId(res.data.data._id);
-        // fetchProfile();
+        const userId = res.data.data._id;
+        setUserId(userId);
+        setProfileId(userId);
+        saveToLocalStorage(userId, userId);
         alert("User Registered Successfully");
         navigate("/profileCustomization");
         e.target.reset();

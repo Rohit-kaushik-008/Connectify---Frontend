@@ -3,6 +3,8 @@ import commentIcon from "../assets/icons/commentIcon.svg";
 import moreIcon from "../assets/icons/moreIcon.svg";
 import { handleLike } from "../utils/postActions.js";
 import { usePost } from "../hooks/usePost.js";
+import defaultAvatar from "../assets/icons/DefaultAvatar.jpg"
+
 
 const FeedPage = ({ post, profile }) => {
   const { setPosts } = usePost();
@@ -29,7 +31,7 @@ const FeedPage = ({ post, profile }) => {
         <div className="flex items-center gap-4 min-w-0 flex-1">
           {/* Profile Image */}
           <img
-            src={profile?.avatar}
+            src={profile?.avatar || defaultAvatar}
             alt={profile?.username}
             className="h-16 w-16 shrink-0 rounded-full object-cover border-2"
           />

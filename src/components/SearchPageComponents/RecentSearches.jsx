@@ -1,13 +1,19 @@
 import { Search } from "lucide-react";
 import { useAuth } from "../../hooks/useAuth.js";
+import { saveToLocalStorage } from "../../Storage/localStorage.js";
+import { useNavigate } from "react-router-dom";
 
 const RecentSearches = ({ searchItem }) => {
-  const { setProfileId } = useAuth();
+  const navigate = useNavigate();
+
+  const { setProfileId, userId } = useAuth();
   return (
     <div>
       <div
         onClick={() => {
           setProfileId(searchItem?._id);
+          saveToLocalStorage(userId, searchItem?._id);
+          navigate("/profile");
         }}
         className="flex items-center justify-between border-b border-zinc-800 px-4 py-3.5 cursor-pointer bg-bg-main hover:bg-bg-dark transition-all duration-100 ease-in active:bg-bg-light"
       >

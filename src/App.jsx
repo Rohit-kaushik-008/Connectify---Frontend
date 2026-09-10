@@ -22,7 +22,7 @@ const App = () => {
           <div className="bg-bg-main h-screen text-white relative">
             {/* Routes */}
 
-            <div className="h-20">
+            <div className="h-20 sticky top-0 z-10 bg-bg-main">
               <MenuBar />
             </div>
 
