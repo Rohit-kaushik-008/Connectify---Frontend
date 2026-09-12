@@ -13,6 +13,7 @@ import { PostProvider } from "./contexts/PostProvider.jsx";
 import Navbar from "./components/Navbar.jsx";
 import MenuBar from "./components/MenuBar.jsx";
 import SearchPage from "./pages/Search.page.jsx";
+import ExplorePage from "./pages/Explore.jsx";
 
 const App = () => {
   return (
@@ -36,6 +37,7 @@ const App = () => {
                 <Route path="/register" element={<RegisterPage />} />
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/search" element={<SearchPage />} />
+                <Route path="/explore" element={<ExplorePage />} />
                 <Route
                   path="/profileCustomization"
                   element={<ProfileCustomize />}

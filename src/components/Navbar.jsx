@@ -3,11 +3,9 @@ import homeIcon from "../assets/icons/homeIcon.svg";
 import searchIcon from "../assets/icons/searchIcon.svg";
 import addIcon from "../assets/icons/addIcon.svg";
 import { useProfile } from "../hooks/useProfile.js";
-// import { useAuth } from "../hooks/useAuth.js";
 
 const Navbar = () => {
-  const { profile } = useProfile();
-  // const { setProfileId, userId } = useAuth();
+  const { profile, goToMyProfile } = useProfile();
 
   return (
     <div className="h-15 bg-bg-main border-t border-neutral-600">
@@ -64,13 +62,13 @@ const Navbar = () => {
         </NavLink>
 
         <NavLink
+          onClick={goToMyProfile}
           to="/profile"
           className="relative flex  h-fit w-16 items-center justify-center"
-          >
+        >
           {({ isActive }) => (
             <>
               <div className="flex mb-2 h-8 w-8 items-center justify-center rounded-full border">
-          
                 <img
                   className="h-6 rounded-full object-cover object-center"
                   src={profile?.avatar}

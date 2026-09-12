@@ -13,7 +13,7 @@ const RecentSearches = ({ searchItem }) => {
         onClick={() => {
           setProfileId(searchItem?._id);
           saveToLocalStorage(userId, searchItem?._id);
-          navigate("/profile");
+          navigate("/explore");
         }}
         className="flex items-center justify-between border-b border-zinc-800 px-4 py-3.5 cursor-pointer bg-bg-main hover:bg-bg-dark transition-all duration-100 ease-in active:bg-bg-light"
       >

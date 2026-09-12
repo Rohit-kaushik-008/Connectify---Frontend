@@ -24,7 +24,6 @@ const RegisterPage = () => {
         setUserId(userId);
         setProfileId(userId);
         saveToLocalStorage(userId, userId);
-        alert("User Registered Successfully");
         navigate("/profileCustomization");
         e.target.reset();
       })

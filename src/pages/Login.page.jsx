@@ -22,7 +22,6 @@ const LoginPage = () => {
         setUserId(userId);
         setProfileId(userId);
         saveToLocalStorage(userId, userId);
-        alert("User Logged In Successfully");
         navigate("/profile");
         e.target.reset();
       })
