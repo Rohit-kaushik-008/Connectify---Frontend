@@ -18,7 +18,6 @@ export function ProfileProvider({ children }) {
     const { user_Id, profile_Id } = loadFromLocalStorage();
     setUserId(user_Id);
     setProfileId(profile_Id);
-    console.log(profileId);
     const fetchProfile = async () => {
       try {
         const response = await API.get(`/user/profile/data/${profileId}`);
@@ -39,7 +38,7 @@ export function ProfileProvider({ children }) {
 
   const goToMyProfile = () => {
     setProfileId(userId);
-    saveToLocalStorage(userId, profileId);
+    saveToLocalStorage(userId, userId);
   };
 
   return (
