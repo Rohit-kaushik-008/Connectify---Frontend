@@ -71,7 +71,7 @@ const AddPost = () => {
               onChange={(e) => setCaption(e.target.value)}
               placeholder="What's on your mind?"
               rows={6}
-              maxLength={100}
+              maxLength={500}
               required
               className="
                 w-full resize-none rounded-xl
