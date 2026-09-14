@@ -39,17 +39,19 @@ export function PostProvider({ children }) {
 
       if (response.data.success) {
         setPosts((prevPosts) =>
-          prevPosts.map((post) =>
-            post._id === postId
-              ? {
-                  ...post,
-                  isLiked: isLiked,
-                  likesCount: isLiked
-                    ? post.likesCount - 1
-                    : post.likesCount + 1,
-                }
-              : post,
-          ),
+          prevPosts.map((post) => {
+            if (post._id !== postId) return post;
+
+            const newIsLiked = !post.isLiked;
+
+            return {
+              ...post,
+              isLiked: newIsLiked,
+              likesCount: newIsLiked
+                ? post.likesCount + 1
+                : post.likesCount - 1,
+            };
+          }),
         );
         return true;
       }
