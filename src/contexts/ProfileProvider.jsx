@@ -10,6 +10,7 @@ import {
 export function ProfileProvider({ children }) {
   const [profile, setProfile] = useState(null);
   const [stats, setStats] = useState(null);
+  const [isFollow, setIsFollow] = useState(null);
   const [loading, setLoading] = useState(true);
 
   const { userId, profileId, setUserId, setProfileId } = useAuth();
@@ -21,7 +22,9 @@ export function ProfileProvider({ children }) {
     const fetchProfile = async () => {
       try {
         const response = await API.get(`/user/profile/data/${profileId}`);
-        const { profileData, stats } = response.data.data;
+        console.log(response.data.data)
+        const { profileData, stats, isFollow } = response.data.data;
+        setIsFollow(isFollow);
         setProfile(profileData);
         setStats(stats);
       } catch (error) {
@@ -51,6 +54,8 @@ export function ProfileProvider({ children }) {
         loading,
         setLoading,
         goToMyProfile,
+        isFollow,
+        setIsFollow,
       }}
     >
       {children}

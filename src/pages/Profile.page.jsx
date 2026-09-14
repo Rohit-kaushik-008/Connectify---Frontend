@@ -12,6 +12,7 @@ const ProfilePage = () => {
   const { posts } = usePost();
 
   const [showFullBio, setShowFullBio] = useState(false);
+  // console.log(profile);
 
   return (
     <div className="h-screen overflow-auto bg-bg-dark">
@@ -29,7 +30,7 @@ const ProfilePage = () => {
       />
 
       {/* Options  */}
-      <ProfileOptions />
+      <ProfileOptions profile={profile} />
 
       <div className="border border-mist-500 mt-12 mb-8 mx-8"></div>
 
