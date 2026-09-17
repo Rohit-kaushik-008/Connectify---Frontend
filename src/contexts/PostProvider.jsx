@@ -25,15 +25,14 @@ export function PostProvider({ children }) {
     fetchPost();
   }, [profileId]);
 
+
   const handleLike = async (isLiked, postId) => {
     try {
       let response;
       if (isLiked) {
         response = await API.post(`/user/post/unlike/${postId}`);
-        console.log(response.data.success);
       } else {
         response = await API.post(`/user/post/like/${postId}`);
-        console.log(response.data.success);
       }
 
       if (response.data.success) {
@@ -60,14 +59,12 @@ export function PostProvider({ children }) {
     }
   };
 
-  const postComment = async (commentId) => {
-    const response = await API.post(`/user/post/comment/${commentId}`);
-    console.log(response.data);
+  const postComment = async (content, postId) => {
+    await API.post(`/user/post/comment/${postId}`, content);
   };
 
-  const deleteComment = async (commentId) => {
-    const response = await API.post(`/user/post/uncomment/${commentId}`);
-    console.log(response);
+  const deleteComment = async (postId) => {
+    await API.post(`/user/post/uncomment/${postId}`);
   };
 
   return (

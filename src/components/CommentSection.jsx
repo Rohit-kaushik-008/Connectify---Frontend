@@ -1,54 +1,41 @@
 import { useState } from "react";
 import { X } from "lucide-react";
+import { usePost } from "../hooks/usePost";
+import { useEffect } from "react";
+import API from "../utils/API";
 
-const CommentModal = ({ setIsOpen }) => {
+const CommentModal = ({ setIsOpen, post }) => {
+  const { postComment } = usePost();
   const [comment, setComment] = useState("");
 
   // Temporary comments for UI testing
-  const [comments, setComments] = useState([
-    {
-      _id: "1",
-      username: "rahul",
-      fullname: "Rahul Sharma",
-      profileImage: "",
-      text: "Amazing post 🔥",
-    },
-    {
-      _id: "2",
-      username: "aman",
-      fullname: "Aman Verma",
-      profileImage: "",
-      text: "This looks really good!",
-    },
-    {
-      _id: "3",
-      username: "priya",
-      fullname: "Priya Singh",
-      profileImage: "",
-      text: "Beautiful picture ❤️",
-    },
-  ]);
+  const [comments, setComments] = useState([]);
 
-  const handleComment = (e) => {
-    e.preventDefault();
-
-    if (!comment.trim()) return;
-
-    const newComment = {
-      _id: Date.now(),
-      username: "you",
-      fullname: "You",
-      profileImage: "",
-      text: comment.trim(),
+  useEffect(() => {
+    const fetchComments = async () => {
+      try {
+        const response = await API.get(`/user/post/PostComments/${post._id}`);
+        if (response.data.success) {
+          setComments(response.data.data);
+        }
+      } catch (error) {
+        console.log(error);
+      }
     };
+    fetchComments();
+  }, [post._id]);
 
-    setComments((prev) => [...prev, newComment]);
-    setComment("");
+  const uploadComment = (e, postId) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const data = Object.fromEntries(formData);
+    postComment(data, postId);
+    e.target.reset();
   };
 
   return (
     <div
-      className={`fixed  top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50`}
+      className={`fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50`}
     >
       <div
         className="flex h-[80vh] w-full max-w-lg flex-col overflow-hidden rounded-2xl bg-bg-main shadow-2xl"
@@ -60,7 +47,7 @@ const CommentModal = ({ setIsOpen }) => {
 
           <button
             onClick={() => setIsOpen(false)}
-            className="border flex h-8 w-8 items-center justify-center rounded-full text-xl text-zinc-400 transition hover:bg-bg-light hover:text-white cursor-pointer"
+            className="flex h-8 w-8 items-center justify-center rounded-full text-xl text-zinc-400 transition hover:bg-bg-light hover:text-white cursor-pointer"
           >
             <X />
           </button>
@@ -74,7 +61,7 @@ const CommentModal = ({ setIsOpen }) => {
             </div>
           ) : (
             <div className="flex flex-col gap-6">
-              {comments.map((item) => (
+              {comments?.map((item) => (
                 <div key={item._id} className="flex gap-3">
                   {/* Profile image */}
                   {item.profileImage ? (
@@ -85,18 +72,22 @@ const CommentModal = ({ setIsOpen }) => {
                     />
                   ) : (
                     <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-theme-dark text-sm font-semibold text-white">
-                      {item.username?.charAt(0).toUpperCase()}
+                      <img
+                        className="rounded-full w-full h-full object-cover object-center"
+                        src={item.users.profileImage}
+                        alt=""
+                      />
                     </div>
                   )}
 
                   {/* Comment content */}
-                  <div className="min-w-0 border flex flex-col justify-center items-start">
+                  <div className="min-w-0  flex flex-col justify-center items-start">
                     <p className="font-body-6 text-sm text-white">
-                      @{item.username}
+                      @{item.users.username}
                     </p>
 
                     <p className="mt-1 wrap-break-word text-sm text-zinc-400">
-                      {item.text}
+                      {item.content}
                     </p>
                   </div>
                 </div>
@@ -107,12 +98,16 @@ const CommentModal = ({ setIsOpen }) => {
 
         {/* Comment input */}
         <form
-          onSubmit={handleComment}
+          onSubmit={(e) => {
+            uploadComment(e, post._id);
+          }}
           className="flex items-center gap-3 border-t border-zinc-800 bg-bg-main p-4"
         >
           <input
             type="text"
+            name="content"
             value={comment}
+            autoComplete="off"
             onChange={(e) => setComment(e.target.value)}
             placeholder="Write a comment..."
             maxLength={300}

@@ -11,7 +11,7 @@ const PostActions = ({ post }) => {
         <LikeButton post={post} />
         <CommentButton post={post} setIsOpen={setIsOpen} />
 
-        {isOpen && <CommentSection setIsOpen={setIsOpen} />}
+        {isOpen && <CommentSection post={post} setIsOpen={setIsOpen} />}
       </div>
     </div>
   );
