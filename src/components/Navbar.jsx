@@ -70,7 +70,7 @@ const Navbar = () => {
             <>
               <div className="flex mb-2 h-8 w-8 items-center justify-center rounded-full border">
                 <img
-                  className="h-6 rounded-full object-cover object-center"
+                  className="w-full h-full rounded-full object-cover object-center"
                   src={profile?.avatar}
                   alt="avatar"
                 />

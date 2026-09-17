@@ -15,9 +15,9 @@ const ProfileCustomize = () => {
   const handleCustomization = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
-    const data = Object.fromEntries(formData);
+    // const data = Object.fromEntries(formData);
 
-    API.patch(`/user/customize/profile/${userId}`, data)
+    API.patch(`/user/customize/profile/${userId}`, formData)
       .then((res) => {
         setProfile(res.data.data);
         alert("User Details Saved");

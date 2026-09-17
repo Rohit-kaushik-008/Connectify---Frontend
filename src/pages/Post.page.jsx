@@ -57,7 +57,7 @@ const AddPost = () => {
           onSubmit={(e) => {
             handleSubmit(e);
           }}
-          className="rounded-2xl border border-zinc-800 bg-bg-light p-5 sm:p-6"
+          className="rounded-2xl border border-zinc-800 bg-bg-light p-5 sm:p-6 mb-30"
         >
           {/* Caption */}
           <div>

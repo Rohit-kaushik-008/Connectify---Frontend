@@ -22,7 +22,6 @@ export function ProfileProvider({ children }) {
     const fetchProfile = async () => {
       try {
         const response = await API.get(`/user/profile/data/${profileId}`);
-        console.log(response.data.data)
         const { profileData, stats, isFollow } = response.data.data;
         setIsFollow(isFollow);
         setProfile(profileData);

@@ -14,7 +14,6 @@ export function PostProvider({ children }) {
       try {
         setLoading(true);
         const response = await API.get(`/user/profile/feed/${profileId}`);
-        // console.log(response.data.data)
         setPosts(response.data.data);
       } catch (error) {
         console.log(error);

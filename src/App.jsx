@@ -10,10 +10,9 @@ import ProfileCustomize from "./pages/ProfileCustomize.page.jsx";
 import { AuthProvider } from "./contexts/AuthProvider.jsx";
 import { ProfileProvider } from "./contexts/ProfileProvider.jsx";
 import { PostProvider } from "./contexts/PostProvider.jsx";
-import Navbar from "./components/Navbar.jsx";
-import MenuBar from "./components/MenuBar.jsx";
 import SearchPage from "./pages/Search.page.jsx";
 import ExplorePage from "./pages/Explore.jsx";
+import AppLayout from "./pages/AppLayout.jsx";
 
 const App = () => {
   return (
@@ -23,31 +22,26 @@ const App = () => {
           <div className="bg-bg-main h-screen text-white relative">
             {/* Routes */}
 
-            <div className="h-20 sticky top-0 z-10 bg-bg-main">
-              <MenuBar />
-            </div>
+            <Routes>
+              {/* Auth pages */}
+              <Route path="/" element={<AuthPage />} />
+              <Route path="/register" element={<RegisterPage />} />
+              <Route path="/login" element={<LoginPage />} />
 
-            <div>
-              <Routes>
-                <Route path="/" element={<AuthPage />} />
+              {/* Main application layout */}
+              <Route element={<AppLayout />}>
                 <Route path="/home" element={<HomePage />} />
                 <Route path="/profile" element={<ProfilePage />} />
                 <Route path="/feed" element={<FeedPage />} />
                 <Route path="/post" element={<PostPage />} />
-                <Route path="/register" element={<RegisterPage />} />
-                <Route path="/login" element={<LoginPage />} />
                 <Route path="/search" element={<SearchPage />} />
                 <Route path="/explore" element={<ExplorePage />} />
                 <Route
                   path="/profileCustomization"
                   element={<ProfileCustomize />}
                 />
-              </Routes>
-            </div>
-
-            <div className="fixed w-full bottom-0 left-0">
-              <Navbar />
-            </div>
+              </Route>
+            </Routes>
           </div>
         </PostProvider>
       </ProfileProvider>
