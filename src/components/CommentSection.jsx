@@ -1,12 +1,19 @@
-import { useState } from "react";
-import { X } from "lucide-react";
+import { useState, useEffect } from "react";
 import { usePost } from "../hooks/usePost";
-import { useEffect } from "react";
+import { useAuth } from "../hooks/useAuth";
+import { X } from "lucide-react";
 import API from "../utils/API";
+import defaultAvatar from "../assets/icons/DefaultAvatar.jpg";
+import CommentDeleteModal from "./PostPageComponents/CommentDeleteModal";
 
 const CommentModal = ({ setIsOpen, post }) => {
-  const { postComment } = usePost();
+  const { userId } = useAuth();
+
+  const { postComment, deleteComment } = usePost();
   const [comment, setComment] = useState("");
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [commentId, setCommentId] = useState(null);
 
   // Temporary comments for UI testing
   const [comments, setComments] = useState([]);
@@ -25,12 +32,29 @@ const CommentModal = ({ setIsOpen, post }) => {
     fetchComments();
   }, [post._id]);
 
-  const uploadComment = (e, postId) => {
+  const uploadComment = async (e, postId) => {
     e.preventDefault();
+
     const formData = new FormData(e.target);
     const data = Object.fromEntries(formData);
-    postComment(data, postId);
-    e.target.reset();
+
+    const newComment = await postComment(data, postId);
+
+    if (!newComment) return;
+
+    setComments((prevComments) => [...prevComments, newComment]);
+
+    setComment("");
+  };
+
+  const delete_comment = async () => {
+    const result = await deleteComment(commentId);
+    if (!result) return;
+    setComments((prevComments) =>
+      prevComments.filter((comment) => comment._id !== commentId),
+    );
+    setCommentId(null);
+    setIsModalOpen(false);
   };
 
   return (
@@ -66,7 +90,7 @@ const CommentModal = ({ setIsOpen, post }) => {
                   {/* Profile image */}
                   {item.profileImage ? (
                     <img
-                      src={item.profileImage}
+                      src={item?.profileImage}
                       alt=""
                       className="h-10 w-10 shrink-0 rounded-full object-cover"
                     />
@@ -74,20 +98,27 @@ const CommentModal = ({ setIsOpen, post }) => {
                     <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-theme-dark text-sm font-semibold text-white">
                       <img
                         className="rounded-full w-full h-full object-cover object-center"
-                        src={item.users.profileImage}
+                        src={item?.users?.profileImage || defaultAvatar}
                         alt=""
                       />
                     </div>
                   )}
 
                   {/* Comment content */}
-                  <div className="min-w-0  flex flex-col justify-center items-start">
+                  <div className="pl-2 min-w-0  flex flex-col justify-center items-start gap-1">
                     <p className="font-body-6 text-sm text-white">
-                      @{item.users.username}
+                      @{item?.users?.username}
                     </p>
 
-                    <p className="mt-1 wrap-break-word text-sm text-zinc-400">
-                      {item.content}
+                    <p
+                      onClick={() => {
+                        if (item?.author !== userId) return;
+                        setCommentId(item._id);
+                        setIsModalOpen(true);
+                      }}
+                      className="mt-1 wrap-break-word text-md text-zinc-400 cursor-pointer"
+                    >
+                      {item?.content}
                     </p>
                   </div>
                 </div>
@@ -123,6 +154,12 @@ const CommentModal = ({ setIsOpen, post }) => {
           </button>
         </form>
       </div>
+      {isModalOpen && (
+        <CommentDeleteModal
+          setIsModalOpen={setIsModalOpen}
+          onDelete={delete_comment}
+        />
+      )}
     </div>
   );
 };

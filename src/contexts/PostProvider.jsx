@@ -25,7 +25,6 @@ export function PostProvider({ children }) {
     fetchPost();
   }, [profileId]);
 
-
   const handleLike = async (isLiked, postId) => {
     try {
       let response;
@@ -59,12 +58,30 @@ export function PostProvider({ children }) {
     }
   };
 
-  const postComment = async (content, postId) => {
-    await API.post(`/user/post/comment/${postId}`, content);
+  const postComment = async (data, postId) => {
+    try {
+      const response = await API.post(`/user/post/comment/${postId}`, data);
+
+      if (response.data.success) {
+        return response.data.data; // newly created comment
+      }
+
+      return null;
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
   };
 
   const deleteComment = async (postId) => {
-    await API.post(`/user/post/uncomment/${postId}`);
+    try {
+      const response = await API.post(`/user/post/uncomment/${postId}`);
+      if (response.data.success) {
+        return response.data.data;
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (

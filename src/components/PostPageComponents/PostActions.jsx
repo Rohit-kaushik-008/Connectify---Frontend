@@ -5,6 +5,7 @@ import { useState } from "react";
 
 const PostActions = ({ post }) => {
   const [isOpen, setIsOpen] = useState(false);
+
   return (
     <div className="px-5 py-4 bg-bg-main">
       <div className="flex items-center gap-8">
@@ -12,6 +13,7 @@ const PostActions = ({ post }) => {
         <CommentButton post={post} setIsOpen={setIsOpen} />
 
         {isOpen && <CommentSection post={post} setIsOpen={setIsOpen} />}
+        
       </div>
     </div>
   );

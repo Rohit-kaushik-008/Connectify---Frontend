@@ -6,7 +6,7 @@ import PostImage from "../components/PostPageComponents/PostImage.jsx";
 
 const FeedPage = ({ post, profile }) => {
   return (
-    <article className="w-full max-w-2xl overflow-hidden rounded-2xl bg-zinc-950 text-white">
+    <article className="w-full overflow-hidden rounded-2xl bg-zinc-950 text-white">
       {/* Header */}
       <div className="flex items-center justify-between px-5 py-4 bg-bg-light min-w-0">
         <PostInfo profile={profile} />

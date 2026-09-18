@@ -27,7 +27,7 @@ const HomePage = () => {
         {feed.map((item) => {
           return (
             <div
-              className="border rounded-2xl border-neutral-700"
+              className="w-full rounded-2xl border-neutral-200"
               key={item._id}
             >
               <FeedPage post={item} profile={item.authorInfo} />
