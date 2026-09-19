@@ -3,15 +3,18 @@ import EditButton from "../components/PostPageComponents/EditButton.jsx";
 import PostCaption from "../components/PostPageComponents/PostCaption.jsx";
 import PostActions from "../components/PostPageComponents/PostActions.jsx";
 import PostImage from "../components/PostPageComponents/PostImage.jsx";
+import { useAuth } from "../hooks/useAuth.js";
 
 const FeedPage = ({ post, profile }) => {
+  const { userId } = useAuth();
+
   return (
     <article className="w-full overflow-hidden rounded-2xl bg-zinc-950 text-white">
       {/* Header */}
       <div className="flex items-center justify-between px-5 py-4 bg-bg-light min-w-0">
         <PostInfo profile={profile} />
 
-        <EditButton />
+        {userId === post.author && <EditButton post={post} />}
       </div>
 
       <PostCaption post={post} />
