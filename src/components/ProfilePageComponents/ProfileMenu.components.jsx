@@ -5,7 +5,7 @@ const ProfileMenu = ({ profile, stats }) => {
       <div className="h-25 w-25 shrink-0 rounded-full border-2 border-neutral-500 sm:h-30 sm:w-30">
         <img
           className="h-full w-full rounded-full object-cover object-center"
-          src={profile?.avatar}
+          src={profile?.profileImage}
           alt="avatar"
         />
       </div>

@@ -12,10 +12,9 @@ const ProfilePage = () => {
   const { posts } = usePost();
 
   const [showFullBio, setShowFullBio] = useState(false);
-  // console.log(profile);
 
   return (
-    <div className="h-screen overflow-auto bg-bg-dark">
+    <div className="h-screen overflow-auto bg-bg-dark lg:py-6 lg:px-8">
       {/* Cover Image */}
       <ProfileCoverImage profile={profile} />
 

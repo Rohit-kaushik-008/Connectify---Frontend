@@ -1,12 +1,11 @@
 import defaultAvatar from "../../assets/icons/DefaultAvatar.jpg";
 
 const PostInfo = ({ profile }) => {
-  // console.log(profile)
   return (
     <div className="flex items-center gap-4 min-w-0 flex-1">
       {/* Profile Image */}
       <img
-        src={profile?.avatar || defaultAvatar}
+        src={profile?.profileImage || defaultAvatar}
         alt={profile?.username}
         className="h-16 w-16 shrink-0 rounded-full object-cover border-2"
       />
