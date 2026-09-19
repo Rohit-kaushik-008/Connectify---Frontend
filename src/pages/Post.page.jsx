@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
 import API from "../utils/API.js";
 import { Plus } from "lucide-react";
+import {X} from "lucide-react";
 
 const AddPost = () => {
   const [caption, setCaption] = useState("");
@@ -146,7 +147,7 @@ const AddPost = () => {
                     hover:bg-black
                   "
                 >
-                  ×
+                  <X />
                 </button>
               </div>
             )}
